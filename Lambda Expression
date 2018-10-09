@@ -1,1 +1,29 @@
 
+type of a lambda expression
+     Functional Interface -- an interface with only one abstract method
+
+Lambda expression can be put in a variable
+     Ex:
+      Comparator<String> c = (String s1, String s2) ->   
+          Integer.compare(s1.length(), s2.length() );
+
+Old version:
+  Comparator<String> c = new Comparator<String>(String s1, String s2){      // use new to create an object
+    public boolean compareTo(String s1, String s2){
+      Integer.compareTo(s1.length(), s2.length());
+    }
+  } 
+
+Q: is lambda expression an object?
+  the answer is complex, but no
+  exact answer: a lambda is an object without an identity
+ 
+
+
+---------------------------
+Method References
+  System.out::println
+Ex:
+  Comparator<Integer> c = (i1, i2) -> Integer.compare(i1, i2);
+    ----- Can be written as -----
+  Comparator<Integer> c = Integer::compare;
