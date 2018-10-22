@@ -1,2 +1,64 @@
 ------Map / Filter / Reduce---------
 
+// Finding sum
+        // Creating list of integers 
+        List<Integer> array = Arrays.asList(-2, 0, 4, 6, 8); 
+        // Finding sum of all elements 
+        int sum = array.stream().reduce(0, (element1, element2) -> element1 + element2); 
+  
+List<String> letters = Arrays.asList("a", "b","c");
+System.out.println(letters.stream()
+	                        .parallel()
+	                        .reduce("", (x, y) -> x + y)
+	                        );
+// return abc
+
+
+
+------------------------------------------------------------------------------------------------------------
+		ArrayList<Person> people = new ArrayList<>();
+		people.add(new Person("alice", 100,"CS"));
+		people.add(new Person("bob", 200,"Math"));
+		people.add(new Person("cathy", 300, "Math"));
+		people.add(new Person("david", 400, "CS"));
+		people.add(new Person("bob", 400, "ENG"));
+    
+    // Accumulate names into a List
+	  List<String> list = people.stream().map(Person::getName).collect(Collectors.toList());
+    // [alice, bob, cathy, david, bob]
+    
+    Set<String> set = people.stream().map(Person::getName).collect(Collectors.toSet());
+    // [bob, cathy, alice, david] 
+================map, filter============================================================================================
+		List<Integer> numbers =  Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8); 
+		List<Integer> sum = numbers.stream() 
+	    .filter(n ->  n % 2 == 0) 
+	    .map(n ->   n * 2) 
+		  .collect(Collectors.toList());
+    // [4, 8, 12, 16]
+-------------- limit ------------------------------------------------------------------------------------------------
+		List<Integer> numbers =  Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8); 
+		List<Integer> twoEvenSquares = numbers.stream() 
+				.filter(n -> {
+					 System.out.println("filtering " + n);
+	                 return n % 2 == 0; }) 
+				.map(n -> { System.out.println("mapping " + n); 
+	                 return n * n; }) 
+				.limit(2)                           // only collect two results
+				.collect(Collectors.toList());
+ // output
+filtering 1
+filtering 2
+mapping 2
+filtering 3
+filtering 4
+mapping 4
+[4, 16]   // this one is list
+--------------------------- sort ------------------------------------------------------------------------------------
+		List<Integer> transactionsIds = 
+			    transactions.stream()
+			                .filter(t -> t.getType() == Transaction.GROCERY)
+			                //.sorted(Comparator.comparing(Transaction::getValue).reversed())
+			                .sorted(Comparator.comparing(Transaction::getValue))
+			                .map(Transaction::getId)
+			                .collect(Collectors.toList());
