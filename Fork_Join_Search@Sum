@@ -73,9 +73,9 @@ public class Searcher extends RecursiveAction{
 			int mid = (start + end) /2;
 		    Searcher left = new Searcher(buffer, start, mid,target);
 		    Searcher right = new Searcher(buffer, mid, end,target);
-		    left.fork();
+		    left.fork();   // when you call fork, you have to call join later on
 		    //right.fork();
-            right.compute();
+            right.compute();   // use current thread to run this task
             left.join();
             //right.join();
 		}
