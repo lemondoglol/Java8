@@ -42,6 +42,12 @@ import java.util.concurrent.RecursiveAction;
 
 public class Searcher extends RecursiveAction{
 	
+	/*
+	this class is almost same as regular task class,
+	the only thing you need to pay attention is code in else
+	statement!
+	*/
+	
 	private static final long serialVersionUID = 1L;
 	private Integer[] buffer; 
 	private int start;
