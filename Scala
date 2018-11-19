@@ -1,0 +1,117 @@
+var x = 2
+======== Main Method ==========================
+object Main {
+  def main(args: Array[String]):Unit = 
+    println("Helllo, Scal");
+}
+
+
+
+======== Functions ============================
+// using lambda expression
+val addOne = ( x : Int) => x + 1
+val add = (x: Int, y: Int) => x + y
+val getAns = () => 42
+println(getAns())
+
+========== Methods =============================
+                        //return type
+def add(x: Int, y: Int): Int = x + y
+println(add(1, 2)) // 3
+
+// no parameter, and return String
+def name: String = System.getProperty("user.name")
+println("Hello, " + name + "!")
+
+========= Classes ===============================
+class Greeter(prefix: String, suffix: String) {
+  def greet(name: String): Unit =
+    println(prefix + name + suffix)
+}
+
+// *Unit says nothing meaningful to return
+val greeter = new Greeter("Hello, ", "!")
+greeter.greet("Scala developer") // Hello, Scala developer!
+
+------
+class Point(var x: Int, var y: Int) {
+
+  def move(dx: Int, dy: Int): Unit = {
+    x = x + dx
+    y = y + dy
+  }
+
+  override def toString: String =      // from AnyRef
+    s"($x, $y)"
+}
+
+val point1 = new Point(2, 3)
+point1.x  // 2
+println(point1)  // prints (2, 3)
+-------
+// Primary constructor parameters with val and var are public. 
+// However, because vals are immutable, you can’t write the following.
+class Point(val x: Int, val y: Int)
+val point = new Point(1, 2)
+point.x = 3  // <-- does not compile
+
+// Parameters without val or var are private values, visible only within the class.
+class Point(x: Int, y: Int)
+val point = new Point(1, 2)
+point.x  // <-- does not compile
+
+
+========== Objects ==================================
+// Objects are single instances of their own definitions. 
+// You can think of them as singletons of their own classes.
+object IdFactory {
+  private var counter = 0
+  def create(): Int = {
+    counter += 1
+    counter
+  }
+}
+
+val newId: Int = IdFactory.create()
+println(newId) // 1
+val newerId: Int = IdFactory.create()
+println(newerId) // 2
+
+============ Traits ======================================
+// They are similar to Java 8’s interfaces. 
+// Classes and objects can extend traits but traits cannot be instantiated 
+// and therefore have no parameters.
+trait Pet {
+  val name: String
+}
+class Dog(val name: String) extends Pet
+class Cat(val name: String) extends Pet
+val dog = new Dog("Lemon")
+val cat = new Cat("Silly")
+val animals = ArrayBuffer.empty[Pet]
+animals.append(dog)
+animals.append(cat)
+animals.foreach(pet => println(pet.name))
+
+============== Tuples =================================
+val ingredient = ("Sugar", 25):Tuple2[String, Int]
+--- accessing ----
+println(ingredient._1) //Sugar
+--- deconstruct ---- 
+val (name, quantity) = ingredient
+println(quantity)  // 25
+
+
+============ List =======================================
+val list: List[Any] = List(
+  "a string",
+  732,  // an integer
+  'c',  // a character
+  true, // a boolean value
+  () => "an anonymous function returning a string"
+)
+list.foreach(element => println(element))
+
+
+
+
